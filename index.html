@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distressed Property Research — Franklin County OH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --scarlet:  #bb0000;
+    --scarlet2: #d63031;
+    --gray:     #4a4a4a;
+    --charcoal: #1c1c1c;
+    --bone:     #f7f4ef;
+    --bone2:    #ede9e1;
+    --gold:     #c8a951;
+    --gold2:    #e0c06a;
+    --red-bg:   #fdf2f2;
+    --org-bg:   #fef6ec;
+    --grn-bg:   #f0f8f0;
+    --blu-bg:   #f0f5fc;
+    --border:   #d8d2c8;
+    --shadow:   rgba(28,28,28,0.10);
+    --muted:    #6b6459;
+    --ff-d: 'Playfair Display', Georgia, serif;
+    --ff-b: 'Outfit', sans-serif;
+    --ff-m: 'JetBrains Mono', monospace;
+  }
+  body { font-family: var(--ff-b); background: var(--bone); color: var(--charcoal); min-height: 100vh; }
+
+  .site-header { background: var(--charcoal); border-bottom: 3px solid var(--scarlet); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px var(--shadow); }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo-mark { font-family: var(--ff-d); font-size: 20px; color: #fff; letter-spacing: -0.3px; }
+  .logo-mark span { color: var(--gold2); font-style: italic; }
+  .logo-sub { font-family: var(--ff-m); font-size: 10px; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-left: 10px; }
+  .nav-tabs { display: flex; height: 60px; }
+  .nav-tab { padding: 0 18px; font-family: var(--ff-b); font-size: 13px; font-weight: 500; color: #888; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; height: 100%; transition: color .2s, border-color .2s; letter-spacing: 0.02em; }
+  .nav-tab:hover { color: #fff; }
+  .nav-tab.active { color: var(--gold2); border-bottom-color: var(--scarlet); }
+
+  .hero { background: var(--charcoal); padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(187,0,0,0.03) 40px, rgba(187,0,0,0.03) 80px); pointer-events:none; }
+  .hero-eyebrow { font-family: var(--ff-m); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--scarlet2); margin-bottom: 1rem; }
+  .hero h1 { font-family: var(--ff-d); font-size: clamp(1.9rem,3.5vw,2.8rem); color: #fff; line-height: 1.2; margin-bottom: 0.8rem; }
+  .hero h1 em { color: var(--gold2); }
+  .hero-desc { font-size: 14px; color: #9a9a9a; max-width: 580px; margin: 0 auto 1.8rem; font-weight: 300; }
+  .city-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .city-pill { padding: 5px 14px; border: 1px solid rgba(200,169,81,0.35); border-radius: 20px; font-size: 11px; color: var(--gold2); font-family: var(--ff-m); letter-spacing: 0.05em; }
+
+  .main { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .section-label { font-family: var(--ff-m); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
+  .chip { padding: 6px 15px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; background: white; color: var(--muted); transition: all .18s; font-family: var(--ff-b); }
+  .chip:hover { border-color: var(--scarlet); color: var(--charcoal); }
+  .chip.active { background: var(--charcoal); color: var(--gold2); border-color: var(--charcoal); }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; transition: box-shadow .2s, transform .2s; position: relative; overflow: hidden; }
+  .card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .card[data-source="auditor"]::before  { background: var(--scarlet); }
+  .card[data-source="neocris"]::before  { background: #c0392b; }
+  .card[data-source="landbank"]::before { background: #1e6b3a; }
+  .card[data-source="pos"]::before      { background: #6c3483; }
+  .card[data-source="building"]::before { background: var(--gold); }
+  .card[data-source="hud"]::before      { background: #555; }
+  .card[data-source="paid"]::before     { background: #a04000; }
+  .card:hover { box-shadow: 0 8px 28px var(--shadow); transform: translateY(-2px); }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; gap: 12px; }
+  .card-name { font-size: 14px; font-weight: 600; color: var(--charcoal); line-height: 1.3; }
+  .badge { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 10px; white-space: nowrap; font-family: var(--ff-m); flex-shrink: 0; }
+  .badge-free { background: #eaf8f0; color: #1e6b3a; }
+  .badge-paid { background: var(--org-bg); color: #a04000; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; font-weight: 300; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .vtag { font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 500; font-family: var(--ff-m); }
+  .vtag-v { background: var(--red-bg); color: #c0392b; }
+  .vtag-a { background: var(--org-bg); color: #a04000; }
+  .vtag-p { background: var(--blu-bg); color: #1a5276; }
+  .vtag-b { background: #f4f4f4; color: var(--muted); border: 1px solid var(--border); }
+  .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn { display:inline-flex; align-items:center; gap:5px; padding:7px 13px; border-radius:7px; font-size:12px; font-weight:500; text-decoration:none; transition:all .15s; cursor:pointer; border:1.5px solid; font-family:var(--ff-b); }
+  .btn-primary { background:var(--charcoal); color:var(--gold2); border-color:var(--charcoal); }
+  .btn-primary:hover { background:#333; }
+  .btn-secondary { background:white; color:var(--charcoal); border-color:var(--border); }
+  .btn-secondary:hover { background:var(--bone2); border-color:var(--scarlet); }
+
+  .steps { display:flex; flex-direction:column; gap:12px; }
+  .step { display:grid; grid-template-columns:50px 1fr; background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .step-num { background:var(--scarlet); display:flex; align-items:center; justify-content:center; font-family:var(--ff-d); font-size:22px; color:#fff; }
+  .step-body { padding:1rem 1.25rem; }
+  .step-title { font-size:14px; font-weight:600; margin-bottom:4px; }
+  .step-desc { font-size:13px; color:var(--muted); line-height:1.6; font-weight:300; }
+  .step-tools { margin-top:8px; font-family:var(--ff-m); font-size:11px; color:var(--scarlet); background:var(--red-bg); padding:4px 10px; border-radius:5px; display:inline-block; }
+
+  .prompts-grid { display:flex; flex-direction:column; gap:10px; }
+  .prompt-card { background:white; border:1px solid var(--border); border-radius:9px; padding:1rem 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer; transition:all .18s; }
+  .prompt-card:hover { border-color:var(--scarlet); box-shadow:0 4px 16px var(--shadow); transform:translateX(4px); }
+  .prompt-text { font-size:13px; color:var(--charcoal); line-height:1.5; flex:1; font-weight:300; }
+  .prompt-arrow { font-size:18px; color:var(--gold); flex-shrink:0; transition:transform .18s; }
+  .prompt-card:hover .prompt-arrow { transform:translateX(4px); }
+
+  .contacts-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:16px; }
+  .contact-card { background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .contact-header { background:var(--charcoal); padding:14px 18px; display:flex; align-items:center; gap:12px; }
+  .contact-icon { width:34px; height:34px; border-radius:50%; background:rgba(200,169,81,0.15); border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+  .contact-city { font-size:14px; font-weight:600; color:#fff; }
+  .contact-dept { font-size:10px; color:#888; font-family:var(--ff-m); }
+  .contact-body { padding:14px 18px; }
+  .contact-phone { font-family:var(--ff-m); font-size:13px; color:var(--scarlet); margin-bottom:8px; }
+  .contact-ask { font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:12px; font-weight:300; }
+  .contact-tag { font-size:10px; font-family:var(--ff-m); padding:2px 8px; border-radius:8px; background:var(--bone2); color:var(--muted); display:inline-block; margin-bottom:10px; }
+
+  footer { background:var(--charcoal); color:#555; text-align:center; padding:2rem; font-size:11px; font-family:var(--ff-m); margin-top:4rem; border-top:3px solid var(--scarlet); }
+  footer a { color:var(--gold2); text-decoration:none; }
+
+  @media(max-width:640px) { .nav-tabs{overflow-x:auto;} .cards-grid{grid-template-columns:1fr;} .contacts-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:baseline;gap:8px;">
+      <span class="logo-mark">PropResearch <span>Franklin</span></span>
+      <span class="logo-sub">Columbus Metro</span>
+    </div>
+    <nav class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('sources',this)">Data Sources</button>
+      <button class="nav-tab" onclick="showTab('workflow',this)">AI Workflow</button>
+      <button class="nav-tab" onclick="showTab('prompts',this)">Prompts</button>
+      <button class="nav-tab" onclick="showTab('contacts',this)">Contacts</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <p class="hero-eyebrow">Real Estate Research Intelligence</p>
+  <h1>Distressed Property Research<br><em>Franklin County, Ohio</em></h1>
+  <p class="hero-desc">Data sources, AI workflows, and search strategies for code violations, vacant tags, point-of-sale, and boarded properties in Columbus metro.</p>
+  <div class="city-pills">
+    <span class="city-pill">Columbus</span>
+    <span class="city-pill">Whitehall</span>
+    <span class="city-pill">Reynoldsburg</span>
+    <span class="city-pill">Bexley</span>
+    <span class="city-pill">Gahanna</span>
+    <span class="city-pill">Grove City</span>
+    <span class="city-pill">Westerville</span>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- DATA SOURCES -->
+  <div id="panel-sources" class="panel active">
+    <p class="section-label">Filter by property type</p>
+    <div class="filter-row">
+      <button class="chip active" onclick="filterCards('all',this)">All types</button>
+      <button class="chip" onclick="filterCards('violation',this)">Code violations</button>
+      <button class="chip" onclick="filterCards('vacant',this)">Vacant / tagged</button>
+      <button class="chip" onclick="filterCards('pos',this)">Point of sale</button>
+      <button class="chip" onclick="filterCards('boarded',this)">Boarded up</button>
+    </div>
+    <div class="cards-grid" id="cards-container">
+
+      <div class="card" data-source="auditor" data-types="violation vacant pos boarded">
+        <div class="card-header"><div class="card-name">Franklin County Auditor — Property Search</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">Primary starting point for Franklin County. Search by parcel, owner, or address. Filter for delinquent taxes, vacant land classification, and absentee ownership across Columbus and suburbs.</p>
+        <div class="card-tags"><span class="vtag vtag-v">Code violations</span><span class="vtag vtag-a">Vacant</span><span class="vtag vtag-p">Point of sale</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.franklincountyauditor.com/real-estate" target="_blank">Auditor Property Search ↗</a>
+          <a class="btn btn-secondary" href="https://www.franklincountytreasurer.com/delinquent-taxes" target="_blank">Delinquent Taxes ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="landbank" data-types="vacant boarded violation">
+        <div class="card-header"><div class="card-name">Central Ohio Community Improvement Corp (COCIC)</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">Franklin County's land bank equivalent. COCIC acquires, manages, and sells vacant and abandoned properties. Their inventory includes boarded, condemned, and deed-in-lieu properties across Columbus metro.</p>
+        <div class="card-tags"><span class="vtag vtag-a">Vacant</span><span class="vtag vtag-b">Boarded up</span><span class="vtag vtag-v">Code violations</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.cocic.org" target="_blank">COCIC Land Bank ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="building" data-types="violation vacant boarded">
+        <div class="card-header"><div class="card-name">Columbus Division of Code Enforcement</div><span class="badge badge-free">Free (FOIA)</span></div>
+        <p class="card-desc">Columbus maintains an active code enforcement database. Request open violation lists, vacant building registrations, and the boarded-up property log. The city's "Problem Property" list is a top lead source.</p>
+        <div class="card-tags"><span class="vtag vtag-v">Code violations</span><span class="vtag vtag-b">Boarded up</span><span class="vtag vtag-a">Vacant</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.columbus.gov/Services/Building-and-Development/Code-Enforcement/" target="_blank">Columbus Code Enforcement ↗</a>
+          <a class="btn btn-secondary" href="https://www.columbus.gov/311/" target="_blank">Columbus 311 ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="building" data-types="violation vacant boarded pos">
+        <div class="card-header"><div class="card-name">Columbus Nuisance Abatement Program</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">Columbus operates a dedicated Nuisance Abatement Program targeting chronic problem properties. Their public records reveal repeat-violation addresses, court-ordered remediation, and properties headed to demolition.</p>
+        <div class="card-tags"><span class="vtag vtag-v">Code violations</span><span class="vtag vtag-a">Vacant</span><span class="vtag vtag-b">Boarded up</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.columbus.gov/Services/Building-and-Development/Code-Enforcement/Nuisance-Abatement/" target="_blank">Nuisance Abatement ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="hud" data-types="vacant boarded">
+        <div class="card-header"><div class="card-name">HUD Vacant &amp; Abandoned Properties — Ohio</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">HUD federally-tracked vacant and abandoned data, including FHA REO inventory. Franklin County has significant HUD REO inventory in Columbus eastside and Whitehall corridors.</p>
+        <div class="card-tags"><span class="vtag vtag-a">Vacant</span><span class="vtag vtag-b">Boarded up</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.huduser.gov/portal/datasets/vacancy.html" target="_blank">HUD Vacancy Data ↗</a>
+          <a class="btn btn-secondary" href="https://hudhomestore.hud.gov" target="_blank">HUD Home Store ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="paid" data-types="violation vacant pos boarded">
+        <div class="card-header"><div class="card-name">PropStream / BatchLeads / DealMachine</div><span class="badge badge-paid">Paid ~$99–149/mo</span></div>
+        <p class="card-desc">Commercial platforms aggregating MLS, public records, and code violation data. Filter by "code violations," "vacant," "pre-foreclosure," and "absentee owner" across all Franklin County municipalities at once.</p>
+        <div class="card-tags"><span class="vtag vtag-v">Code violations</span><span class="vtag vtag-a">Vacant</span><span class="vtag vtag-p">Point of sale</span><span class="vtag vtag-b">Boarded up</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://propstream.com" target="_blank">PropStream ↗</a>
+          <a class="btn btn-secondary" href="https://batchleads.io" target="_blank">BatchLeads ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="building" data-types="violation vacant pos boarded">
+        <div class="card-header"><div class="card-name">Franklin County Board of Revision</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">Appeals of property valuation often signal distress. Owners who appeal assessments downward may be in financial difficulty. Cross-reference BOR filings with delinquent tax records for high-probability leads.</p>
+        <div class="card-tags"><span class="vtag vtag-v">Code violations</span><span class="vtag vtag-a">Vacant</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.franklincountyauditor.com/board-of-revision" target="_blank">Board of Revision ↗</a>
+        </div>
+      </div>
+
+      <div class="card" data-source="pos" data-types="pos violation vacant">
+        <div class="card-header"><div class="card-name">Bexley Point of Sale Inspection Program</div><span class="badge badge-free">Free</span></div>
+        <p class="card-desc">Bexley requires point-of-sale inspections before home transfers. Failed POS reports are direct leads to motivated sellers who cannot close without costly repairs. Contact Bexley Building Department for failed inspection records.</p>
+        <div class="card-tags"><span class="vtag vtag-p">Point of sale</span><span class="vtag vtag-v">Code violations</span></div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://www.bexley.org/government/departments/building-department" target="_blank">Bexley Building Dept ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORKFLOW -->
+  <div id="panel-workflow" class="panel">
+    <p class="section-label">5-step AI-powered research process — Franklin County</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Seed Data Pull — Franklin County Auditor</div><div class="step-desc">Download the full parcel roll for Columbus, Whitehall, Reynoldsburg, Bexley, and suburbs. Filter for: delinquent taxes 2+ years, vacant classification, last transfer 5+ years ago, or absentee ownership (owner address ≠ property address).</div><span class="step-tools">Tool: franklincountyauditor.com</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Code Violation Cross-Reference</div><div class="step-desc">Submit FOIA requests to Columbus Division of Code Enforcement and suburb building departments. Request open violation logs, vacant building registrations, and boarded-up property lists. Properties on 2+ lists are highest priority.</div><span class="step-tools">Tool: Columbus Code Enforcement + suburb FOIA requests</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">AI Scoring with Claude</div><div class="step-desc">Upload your combined CSV to Claude. Score each property by distress indicators: violations + delinquent taxes + vacancy + absentee + POS status. Identify top 20–30 acquisition targets ranked by distress score.</div><span class="step-tools">Tool: Claude AI → claude.ai</span></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">COCIC Land Bank &amp; POS Check</div><div class="step-desc">Cross-reference your scored list against COCIC's property inventory. For Bexley properties: pull failed POS inspections from Building Dept. Land bank and POS failures are highest-motivation sellers.</div><span class="step-tools">Tool: COCIC + Bexley Building Dept</span></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Skip Trace, Outreach &amp; Validation</div><div class="step-desc">Run skip traces on absentee and LLC owners via BatchLeads. Use Claude to draft personalized outreach letters. Drive-by validate top 30 properties — photograph boarding, utility status, and condition indicators.</div><span class="step-tools">Tool: BatchLeads + Claude AI + field visit</span></div></div>
+    </div>
+  </div>
+
+  <!-- PROMPTS -->
+  <div id="panel-prompts" class="panel">
+    <p class="section-label">Copy these prompts into Claude to accelerate your Franklin County research</p>
+    <div class="prompts-grid">
+      <div class="prompt-card" onclick="copyPrompt(this,'I have a CSV of Franklin County Ohio parcels across Columbus, Whitehall, Reynoldsburg, and Bexley. Help me build a distress score for each property based on: years of delinquent taxes, number of open code violations, absentee ownership, and vacancy classification. Show me the top 20 highest-scoring properties.')"><div class="prompt-text">Score and rank my Franklin County parcel list by distress indicators</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'Draft an outreach letter to a delinquent property owner in Columbus Ohio who has 3 open code violations and owes 4 years of back taxes. The tone should be empathetic and solution-focused, offering a cash purchase as a way to resolve their situation quickly.')"><div class="prompt-text">Draft an outreach letter to a distressed property owner in Columbus</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'Write a public records request (FOIA) letter addressed to the Columbus Division of Code Enforcement requesting: the current list of properties with open code violations, a list of properties with vacant building registrations, and any properties on the nuisance abatement watchlist or scheduled for demolition.')"><div class="prompt-text">Generate a FOIA request for Columbus Code Enforcement records</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'Explain how to use the Central Ohio Community Improvement Corporation (COCIC) land bank to identify and acquire boarded or condemned properties in Franklin County. What is the acquisition process, timeline, and typical costs?')"><div class="prompt-text">How to work with COCIC land bank for Franklin County acquisitions</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'I found a property in Whitehall Ohio with a vacant building registration, 3 years of delinquent taxes, and an absentee LLC owner. Walk me through a full due diligence checklist before making an offer, including title issues, lien searches, environmental concerns, and rehab cost estimation.')"><div class="prompt-text">Due diligence checklist for a distressed Whitehall property with LLC owner</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'What is the point-of-sale inspection process in Bexley Ohio, and how can a real estate investor use POS inspection results to find motivated sellers? What public records are available and how do I request them?')"><div class="prompt-text">Explain the Bexley point-of-sale inspection process for investors</div><div class="prompt-arrow">→</div></div>
+      <div class="prompt-card" onclick="copyPrompt(this,'Help me build a driving route through Columbus east side and Whitehall to field-verify boarded-up and vacant properties. What should I look for, photograph, and note to assess each property condition and investment potential?')"><div class="prompt-text">Build a field research checklist for Columbus east side drive-by assessment</div><div class="prompt-arrow">→</div></div>
+    </div>
+    <p style="margin-top:1.5rem;font-size:11px;color:var(--muted);font-family:var(--ff-m);">↑ Click any prompt to copy it — paste directly into Claude at claude.ai</p>
+  </div>
+
+  <!-- CONTACTS -->
+  <div id="panel-contacts" class="panel">
+    <p class="section-label">Key contacts — Franklin County municipalities</p>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏛</div><div><div class="contact-city">Columbus</div><div class="contact-dept">Division of Code Enforcement</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 645-6588</div>
+          <div class="contact-tag">FOIA + 311 Request</div>
+          <div class="contact-ask">Request: open violation list, vacant building registrations, nuisance abatement watchlist, boarded-up property log, demolition schedule.</div>
+          <a class="btn btn-primary" href="https://www.columbus.gov/Services/Building-and-Development/Code-Enforcement/" target="_blank" style="font-size:12px;">Code Enforcement ↗</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏛</div><div><div class="contact-city">Whitehall</div><div class="contact-dept">Building &amp; Housing Dept</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 337-9370</div>
+          <div class="contact-tag">FOIA: Open records request</div>
+          <div class="contact-ask">Request: open violations, vacant building tags, boarded property log, condemned structures, properties referred to COCIC land bank.</div>
+          <a class="btn btn-primary" href="https://www.whitehall.oh.us/building-housing" target="_blank" style="font-size:12px;">City Website ↗</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏛</div><div><div class="contact-city">Bexley</div><div class="contact-dept">Building Department</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 559-4229</div>
+          <div class="contact-tag">POS Program + FOIA</div>
+          <div class="contact-ask">Request: failed POS inspections, repeat violator list, open code violations. POS program is a top lead source for motivated sellers.</div>
+          <a class="btn btn-primary" href="https://www.bexley.org/government/departments/building-department" target="_blank" style="font-size:12px;">Building Dept ↗</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏦</div><div><div class="contact-city">COCIC Land Bank</div><div class="contact-dept">Central Ohio Comm. Improvement</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 221-0229</div>
+          <div class="contact-tag">Land Bank Acquisitions</div>
+          <div class="contact-ask">Get on the buyer notification list. COCIC properties often sell below market. Ask about their pipeline for Columbus east side, Whitehall, and Reynoldsburg.</div>
+          <a class="btn btn-primary" href="https://www.cocic.org" target="_blank" style="font-size:12px;">COCIC Website ↗</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏛</div><div><div class="contact-city">Franklin County Auditor</div><div class="contact-dept">Real Estate Division</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 525-3230</div>
+          <div class="contact-tag">Parcel + Delinquency Data</div>
+          <div class="contact-ask">Request bulk parcel export with delinquency flags, absentee owner data, and vacancy classification for your target municipalities.</div>
+          <a class="btn btn-primary" href="https://www.franklincountyauditor.com" target="_blank" style="font-size:12px;">Auditor Website ↗</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-header"><div class="contact-icon">🏛</div><div><div class="contact-city">Reynoldsburg</div><div class="contact-dept">Building &amp; Zoning Dept</div></div></div>
+        <div class="contact-body">
+          <div class="contact-phone">(614) 868-8100</div>
+          <div class="contact-tag">FOIA: Open records request</div>
+          <div class="contact-ask">Request: open violations, vacant/boarded property log, properties in condemnation proceedings, demo watchlist.</div>
+          <a class="btn btn-primary" href="https://www.reynoldsburg.gov/departments/building" target="_blank" style="font-size:12px;">City Website ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Distressed Property Research — Franklin County, Ohio &nbsp;|&nbsp; Data from public sources &nbsp;|&nbsp; Built with <a href="https://claude.ai" target="_blank">Claude AI</a></p>
+  <p style="margin-top:6px;font-size:10px;">For informational purposes only. Verify all data with official county and municipal records before making investment decisions.</p>
+</footer>
+
+<script>
+  function showTab(id,el){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');el.classList.add('active');}
+  function filterCards(type,el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.card[data-types]').forEach(card=>{card.style.display=(type==='all'||card.dataset.types.includes(type))?'':'none';});}
+  function copyPrompt(el,text){navigator.clipboard.writeText(text).then(()=>{const a=el.querySelector('.prompt-arrow');const o=a.textContent;a.textContent='✓';a.style.color='#1e6b3a';setTimeout(()=>{a.textContent=o;a.style.color='';},1800);}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);});}
+</script>
+</body>
+</html>
